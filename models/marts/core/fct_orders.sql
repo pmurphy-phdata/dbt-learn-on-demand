@@ -6,6 +6,10 @@ payments as (
     select * from {{ ref('stg_payments') }}
 ),
 
+order_status as (
+    select * from {{ ref('order_status')}}
+),
+
 order_payments as (
     select
         order_id,
@@ -25,6 +29,8 @@ final as (
 
     from orders
     left join order_payments using (order_id)
+    left join order_status using (status)
+
 )
 
 select * from final
