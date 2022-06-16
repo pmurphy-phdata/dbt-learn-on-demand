@@ -24,6 +24,17 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
+vars:
+  # The `start_date` variable will be accessible in all resources
+  start_date: '2016-06-01'
+
+  # The `platforms` variable is only accessible to resources in the jaffle_shop project
+  jaffle_shop:
+    platforms: ['web', 'mobile']
+
+  # The `app_ids` variable is only accessible to resources in the snowplow package
+  snowplow:
+    app_ids: ['marketing', 'app', 'landing-page']
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -37,3 +48,12 @@ models:
       +materialized: view
     marts:
       +materialized: table
+
+on-run-end:
+  - "grant usage on {{ target.schema }} to role reporter"
+
+# models in `models/marketing/ will be rendered to the "*_marketing" schema
+models:
+  jaffle_shop:
+    marketing:
+      +schema: marketing
