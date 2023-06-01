@@ -1,9 +1,12 @@
+{#-
+
 {{ config(
     post_hook=[
       "grant select on {{ this }} to role reporter"
     ]
 ) }}
 
+ -#}
 with customers as (
     select * from {{ ref('stg_customers')}}
 ),
