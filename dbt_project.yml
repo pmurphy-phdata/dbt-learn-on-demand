@@ -49,13 +49,3 @@ models:
     marts:
       +materialized: table
 
-on-run-end:
-  - "grant usage on {{ target.schema }} to role reporter"
-
-# models in `models/marketing/ will be rendered to the "*_marketing" schema
-models:
-  jaffle_shop:
-    marketing:
-      +schema: marketing
-snowflake_spend:
-  enabled: true      
