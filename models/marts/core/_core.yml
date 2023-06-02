@@ -1,0 +1,25 @@
+version: 2
+
+models:
+    - name: dim_customers
+      columns: 
+        - name: customer_id
+          description: blah blah blah.
+          tests:
+            - unique
+            - not_null
+    - name: fct_orders
+      columns: 
+        - name: order_id
+          description: blah blah blah.
+          tests:
+            - unique
+            - not_null
+    - name: int_orders__pivoted
+      columns: 
+        - name: order_id
+          description: blah blah blah.
+          tests:
+            - unique
+            - not_null
+  
