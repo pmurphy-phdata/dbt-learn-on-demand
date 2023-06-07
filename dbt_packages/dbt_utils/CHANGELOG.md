@@ -1,20 +1,18 @@
 <!--- Copy, paste, and uncomment the following headers as-needed for unreleased features
 # Unreleased
 ## New features
-- XXX ([#XXX](https://github.com/dbt-labs/dbt-utils/issues/XXX), [#XXX](https://github.com/dbt-labs/dbt-utils/pull/XXX))
+* ZZZ by @YYY in https://github.com/dbt-labs/dbt-utils/pull/XXX
 ## Fixes
 ## Quality of life
 ## Under the hood
 ## Contributors:
 --->
 
-# Unreleased
+# dbt utils v1.1.1
 ## New features
-- XXX ([#XXX](https://github.com/dbt-labs/dbt-utils/issues/XXX), [#XXX](https://github.com/dbt-labs/dbt-utils/pull/XXX))
+* Improve the performance of the `at_least_one` test by pruning early. This is especially helpful when running against external tables. By @joshuahuntley in https://github.com/dbt-labs/dbt-utils/pull/775
 ## Fixes
-## Quality of life
-## Under the hood
-## Contributors:
+* Fix legacy links in README by @dbeatty10 in https://github.com/dbt-labs/dbt-utils/pull/796
 
 # dbt utils v1.1.0
 ## What's Changed
@@ -47,8 +45,8 @@
 
 # dbt utils v1.0
 
-## Migration Guide 
-The full migration guide is at https://docs.getdbt.com/guides/migration/versions/upgrading-to-dbt-utils-v1.0 
+## Migration Guide
+The full migration guide is at https://docs.getdbt.com/guides/migration/versions/upgrading-to-dbt-utils-v1.0
 
 ## New features
 - New macro `get_single_value` ([#696](https://github.com/dbt-labs/dbt-utils/pull/696))
@@ -62,7 +60,7 @@ The full migration guide is at https://docs.getdbt.com/guides/migration/versions
 ## Fixes
 - `union()` now includes/excludes columns case-insensitively
 - The `expression_is_true test` doesn’t output * unless storing failures, a cost improvement for BigQuery ([#683](https://github.com/dbt-labs/dbt-utils/issues/683), [#686](https://github.com/dbt-labs/dbt-utils/pull/686))
-- Updated the `slugify` macro to prepend "_" to column names beginning with a number since most databases do not allow names to begin with numbers. 
+- Updated the `slugify` macro to prepend "_" to column names beginning with a number since most databases do not allow names to begin with numbers.
 
 ## Under the hood
 - Remove deprecated table argument from `unpivot` ([#671](https://github.com/dbt-labs/dbt-utils/pull/671))

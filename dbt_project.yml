@@ -52,3 +52,11 @@ models:
       +required_tests: {"unique.*|not_null": 1}
   snowflake_spend:
     enabled: true
+
+tests:
+  jaffle_shop:
+    config:
+      limit: 10
+      store_failures: true
+      schema: abc_test
+	

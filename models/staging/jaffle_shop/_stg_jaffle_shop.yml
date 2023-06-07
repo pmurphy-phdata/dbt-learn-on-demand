@@ -7,7 +7,7 @@ models:
         - name: customer_id
           description: The primary key for customers.
           tests:
-            - unique
+            - unique       
             - not_null
 
     - name: stg_orders
@@ -21,6 +21,7 @@ models:
                 field: customer_id
             - unique
             - not_null
+            - gte_zero
         - name: status
           description: '{{ doc("order_status") }}'
           tests:
@@ -33,3 +34,7 @@ models:
                   - return_pending
             - unique
             - not_null
+
+
+
+
