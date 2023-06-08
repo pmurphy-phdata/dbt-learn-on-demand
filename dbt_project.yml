@@ -43,20 +43,31 @@ vars:
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
+  +database: analytics
   jaffle_shop:
+    +schema: jaffle_shop
     +required_docs: true
-    staging:
+    cert:
+      +schema: cert
       +materialized: view
+    staging:
+      jaffle_shop:
+        +schema: staging
+        +materialized: view
+      stripe:
+        +schema: staging
+        +materialized: view
     marts:
+      +schema: marts
       +materialized: table
       +required_tests: {"unique.*|not_null": 1}
-  snowflake_spend:
-    enabled: true
 
 tests:
-  jaffle_shop:
-    config:
-      limit: 10
-      store_failures: true
-      schema: abc_test
-	
+  jaffle_shop:  # project name
+    staging:    # top-level dir inside models/ dir
+      +store_failures: true
+      +schema: dbt_test
+      stripe:
+        +limit: 10
+        +store_failures: true
+        +schema: dbt_test
