@@ -2,24 +2,55 @@ version: 2
 
 models:
     - name: dim_customers
-      columns: 
+      columns:
         - name: customer_id
-          description: blah blah blah.
+          description:  '{{ doc("col1") }}'
           tests:
             - unique
             - not_null
     - name: fct_orders
-      columns: 
+      description: '{{ doc("fiscal_calendar") }}'
+      meta:
+        owner: "@alice"
+        model_maturity: in dev
+      config:
+          schema: cert
+          materialized: view
+          tags:
+            - "daily"
+            - "published"
+      columns:
         - name: order_id
           description: blah blah blah.
+          meta:
+            isPk: true
           tests:
             - unique
             - not_null
     - name: int_orders__pivoted
-      columns: 
+      columns:
         - name: order_id
-          description: blah blah blah.
+          description:  '{{ doc("col1b") }}'
           tests:
             - unique
             - not_null
-  
+
+exposures:
+
+  - name: weekly_jaffle_metrics
+    label: Jaffles by the Week
+    type: dashboard
+    maturity: high
+    url: https://bi.tool/dashboards/1
+    description: >
+      Did someone say "exponential growth"?
+
+    depends_on:
+      - ref('fct_orders')
+      - ref('dim_customers')
+      - source('jaffle_shop', 'orders')
+      #- metric('count_orders')
+
+    owner:
+      name: Callum McData
+      email: data@jaffleshop.com
