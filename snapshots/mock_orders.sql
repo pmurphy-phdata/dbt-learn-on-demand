@@ -1,18 +1,20 @@
 {% snapshot mock_orders %}
 
+{#
 {% set new_schema = target.schema + '_snapshot' %}
+#}
 
 {{
     config(
-      target_database='analytics',
-      target_schema=new_schema,
       unique_key='order_id',
-
       strategy='timestamp',
-      updated_at='updated_at',
+      updated_at='order_date',
     )
 }}
 
-select * from analytics.{{target.schema}}.mock_orders
+{%- set target_database = config.get('target_database') -%}
+{%- set target_schema = config.get('target_schema') -%}
+
+select * from {{ ref('stg_orders')}}
 
 {% endsnapshot %}

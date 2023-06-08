@@ -3,16 +3,16 @@ version: 2
 models:
     - name: stg_customers
       description: Staged customer data from our jaffle shop app.
-      columns: 
+      columns:
         - name: customer_id
           description: The primary key for customers.
           tests:
-            - unique       
+            - unique
             - not_null
 
     - name: stg_orders
       description: Staged order data from our jaffle shop app.
-      columns: 
+      columns:
         - name: order_id
           description: Primary key for orders.
           tests:
@@ -32,7 +32,6 @@ models:
                   - returned
                   - placed
                   - return_pending
-            - unique
             - not_null
 
 

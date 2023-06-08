@@ -24,17 +24,10 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
-vars:
-  # The `start_date` variable will be accessible in all resources
-  start_date: '2016-06-01'
-
-  # The `platforms` variable is only accessible to resources in the jaffle_shop project
+seeds:
   jaffle_shop:
-    platforms: ['web', 'mobile']
+    +schema: seed_data
 
-  # The `app_ids` variable is only accessible to resources in the snowplow package
-  snowplow:
-    app_ids: ['marketing', 'app', 'landing-page']
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -43,10 +36,8 @@ vars:
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  +database: analytics
   jaffle_shop:
-    +schema: jaffle_shop
-    +required_docs: true
+    +database: analytics
     cert:
       +schema: cert
       +materialized: view
@@ -58,16 +49,33 @@ models:
         +schema: staging
         +materialized: view
     marts:
-      +schema: marts
-      +materialized: table
-      +required_tests: {"unique.*|not_null": 1}
+      core:
+        +schema: marts
+        +materialized: table
+        +required_tests: {"unique.*|not_null": 1}
+
+# ======
+# Snapshot Configs
+# ======
+snapshots:
+  jaffle_shop:
+    +target_database: analytics
+    +target_schema: cert
+
 
 tests:
   jaffle_shop:  # project name
     staging:    # top-level dir inside models/ dir
       +store_failures: true
       +schema: dbt_test
-      stripe:
+      jaffle_shop:
         +limit: 10
         +store_failures: true
         +schema: dbt_test
+
+vars:
+  # The `start_date` variable will be accessible in all resources
+  start_date: '2022-06-01'
+  # The `platforms` variable is only accessible to resources in the jaffle_shop project
+  jaffle_shop:
+    platforms: ['web', 'mobile']
